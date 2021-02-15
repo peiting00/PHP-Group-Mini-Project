@@ -18,7 +18,7 @@ img {
 }
 
 .top {
-    max-height: 200px;
+    max-height: 180px;
     overflow: hidden;
 }
 
@@ -33,13 +33,11 @@ img {
     background-color: white;
     width: 40%;
     margin: -50px auto;
-
 }
 
 .form-block {
     font-size: 16px;
     padding: 25px;
-    
 }
 
 label {
@@ -71,10 +69,14 @@ input[type='checkbox'] {
     float: right;
 }
 
+.create-acc {
+    text-decoration: underline;
+}
+
 .btn {
     background-color: #fb771a;
     color: white;
-    margin-top: 40px;
+    margin-top: 20px;
     height: 55px;
     font-size: 16px;
 }
