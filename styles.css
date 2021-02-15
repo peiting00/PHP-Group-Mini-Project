@@ -1,0 +1,80 @@
+body {
+    background-color: #f8f9fa;
+    font-family: "Roboto", sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+h3 {
+    font-size: 28px;
+    margin: 0px 0px 30px;
+    text-align: center;
+}
+
+img {
+    max-width: 100%;
+    object-fit: contain;
+}
+
+.top {
+    max-height: 200px;
+    overflow: hidden;
+}
+
+.bottom {
+    display: flex; /*make the box center*/
+    min-height: auto;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    background-color: white;
+    width: 40%;
+    margin: -50px auto;
+
+}
+
+.form-block {
+    font-size: 16px;
+    padding: 25px;
+    
+}
+
+label {
+    font-weight: 400;
+}
+
+.form-control {
+    border: none;
+    height: 54px;
+    background: #efefef;
+}
+
+span {
+    font-size: 14px;
+    color: #888888;
+}
+
+input[type='checkbox'] {
+    position: absolute;
+    height: 15px;
+    width: 15px;
+    margin-left: 8px;
+    float: left;
+}
+
+.forgot-pass {
+    color: #888888;
+    text-decoration: underline;
+    float: right;
+}
+
+.btn {
+    background-color: #fb771a;
+    color: white;
+    margin-top: 40px;
+    height: 55px;
+    font-size: 16px;
+}
