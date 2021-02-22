@@ -11,6 +11,9 @@ if (!$conn) {
     die ("Connection failed: ".mysqli_connect_error());
 }
 
+//Variable for the session 
+$db = mysqli_connect($servername, $username, $password, 'projectDB');
+
 // Select database
 $dbSelect = mysqli_select_db($conn, 'projectDB');
 

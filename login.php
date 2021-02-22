@@ -50,6 +50,19 @@
     </body>
 </html>
 
+<?php
+
+    if(isset($_COOKIE['usernamecookie']) and isset($_COOKIE['passwordcookie'])){
+        $user = $_COOKIE['usernamecookie'];
+        $pass = $_COOKIE['passwordcookie'];
+        echo "<script>
+            document.getElementById('username').value = '$user';
+            document.getElementById('password').value = '$pass';
+            </script>";
+    }
+
+?>
+
 <script type="text/javascript">
     function show_alert(status) {
         var alertDiv = document.getElementById("alert");
@@ -70,11 +83,14 @@
 
 <?php
     include "dbConnection.php";
+    session_start();
 
     if (isset($_POST["login"])) {
         $username = $_POST["username"];
         $password = $_POST["password"];
+        
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        
 
         $loginQuery = mysqli_query($conn, "SELECT password_hash FROM user WHERE username='$username'");
         $password_hash = mysqli_fetch_row($loginQuery);
@@ -83,9 +99,17 @@
             if ($password_hash[0] == "") {
                 echo "<script>show_alert('fail_username')</script>";
             } else if (password_verify($password, $password_hash[0])) {
+                if(isset($_POST["remember_me"])){  
+                    setcookie('usernamecookie', $username, time()+86400); //86400 = 1 day
+                    setcookie('passwordcookie', $password, time()+86400);
+                }
+                session_start();
+                $_SESSION['login_user'] = $username; 
                 echo "<script>show_alert('$username')</script>";
-                header( "refresh:3;url=home.php" );
-            } else {
+                header( "location:home.php" ); 
+                
+            } 
+            else {
                 echo "<script>show_alert('fail_password')</script>";
             }
         }
