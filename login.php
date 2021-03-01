@@ -36,7 +36,10 @@
                         <div class="form-group">
                             <label for="remember_me"><span>Remember me</span>
                             <input type="checkbox" name="remember_me" id="remember_me"/></label>
-                            <span><a href="resetPwd.php" class="forgot-pass">Forgot Password</a></span> 
+                            <span><a href="resetPwd.php" class="forgot-pass">Reset Password</a></span> 
+                        </div>
+                        <div class="form-group">
+                            <span><a href="changePwd.php" class="forgot-pass">Change Password</a></span><br>
                         </div>
                         <div class="form-group">
                             <span>New user?</span>
@@ -90,7 +93,6 @@
         $password = $_POST["password"];
         
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
-        
 
         $loginQuery = mysqli_query($conn, "SELECT password_hash FROM user WHERE username='$username'");
         $password_hash = mysqli_fetch_row($loginQuery);
