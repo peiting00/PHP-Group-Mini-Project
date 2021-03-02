@@ -27,18 +27,18 @@
                         <!-- Username Field-->
                         <div class="form-group">
                             <span style="color:Red">* indicates required field</span><br/>
-                            <label for="username">Username</label>
-                            <input type="text" class="form-control" id="username" name="username"placeholder="Your Username *"  required>
+                            <label for="username">Username <span style="color:red">*</span></label>
+                            <input type="text" class="form-control" id="username" name="username"placeholder="Your Username "  required>
                         </div>
                         <!-- Phone Number Field-->
                         <div class="form-group">
-                            <label for="phone_number">Phone Number</label><br/>
-                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Your Phone Number *" maxlength="11" size="13"  required>
+                            <label for="phone_number">Phone Number <span style="color:red">*</span></label><br/>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Your Phone Number " maxlength="11" size="13"  required>
                         </div>
                         <!-- Password Field -->
                         <div class="form-group">
-                        <label for="password">Password</label>
-                        <input type="password" class="form-control" id="password" name="password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                        <label for="password">Password <span style="color:red">*</span></label>
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                             onkeyup="keyUp()" required>
                         </div>
@@ -50,8 +50,8 @@
                             <p id="length" class="invalid" >Minimum <b>8 characters</b></p>
                         </div>
                         <div class="form-group">
-                            <label for="password">Confirm Password</label>
-                            <input type="password" class="form-control" id="password2" name="password2"  placeholder="Re-enter your password *" required>
+                            <label for="password">Confirm Password <span style="color:red">*</span></label>
+                            <input type="password" class="form-control" id="password2" name="password2"  placeholder="Re-enter your password " required>
                         </div>
                         <!-- Link to LOGIN page -->
                         <div class="form-group">
