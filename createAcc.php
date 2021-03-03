@@ -33,12 +33,12 @@
                         <!-- Phone Number Field-->
                         <div class="form-group">
                             <label for="phone_number">Phone Number <span style="color:red">*</span></label><br/>
-                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Your Phone Number " maxlength="11" size="13"  required>
+                            <input type="text" class="form-control" id="phone_number" name="phone_number" placeholder="Your Phone Number " maxlength="10" required>
                         </div>
                         <!-- Password Field -->
                         <div class="form-group">
                         <label for="password">Password <span style="color:red">*</span></label>
-                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                        <input type="password" class="form-control" id="password" name="password" placeholder="Your Password" pattern="(?=.*[a-z])(?=.*[A-Z]).{8,}" 
                             title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" 
                             onkeyup="keyUp()" required>
                         </div>
