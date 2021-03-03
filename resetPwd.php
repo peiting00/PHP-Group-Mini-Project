@@ -77,7 +77,7 @@
                 echo "<script>show_alert('fail_msg')</script>";
             }
             if(($user['username'] == $username) && ($user['phone'] == $phone)) { 
-                $str = "abcdefghijklmnopqrstuvwxyz0123456789";
+                $str = "ABCDEFGHIJKLMNOPQRSTUWXYZabcdefghijklmnopqrstuvwxyz0123456789";
                 $str = str_shuffle($str);
                 $str = substr($str,0,12);
                 $hashed_password = password_hash($str, PASSWORD_DEFAULT);

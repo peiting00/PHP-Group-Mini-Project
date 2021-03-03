@@ -35,7 +35,7 @@
                         </div>
                         <div class="form-group">
                             <label for="password">New Password</label>
-                            <input type="password" class="form-control" placeholder="Your New Password" name="n_pwd" id="n_pwd" required>
+                            <input type="password" class="form-control" placeholder="Your New Password" name="n_pwd" id="n_pwd" minlength="8" required>
                         </div>
                         <input type="reset" name="clear" value="Clear Input" class="btn btn-block">
                         <input type="submit" name="change_pwd" value="Change Password" class="btn btn-block">
