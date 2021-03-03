@@ -12,6 +12,13 @@ h3 {
     text-align: center;
 }
 
+h4{
+    font-size: 20px;
+    font-weight:bold;
+    margin: 0px 0px 15px;
+    text-align: center;
+}
+
 img {
     max-width: 100%;
     object-fit: contain;
@@ -121,4 +128,12 @@ input[type='checkbox'] {
     position:relative;
     left:-10px;
     content:"\f00d";/*cross*/
+}
+
+textarea#bio {
+    padding:10px 10px 10px;
+    border-radius:10 px;
+    border:1.5px solid black;
+    font:8px;
+    transition:box-shadow 0.5s ease;
 }
