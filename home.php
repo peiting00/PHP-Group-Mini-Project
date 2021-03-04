@@ -219,20 +219,27 @@ include "dbConnection.php";
                         url varchar(200) NULL,
                         color varchar(10) NULL,
                         password_hashed char(40) NOT NULL,
-                        created_at datetime DEFAULT CURRENT_TIMESTAMP)
-                        ";
+                        created_at datetime DEFAULT CURRENT_TIMESTAMP,
+                        userID INT(6) UNSIGNED,
+                        FOREIGN KEY (userID) REFERENCES user(userID)
+                        )";
 
                     $createTable=mysqli_query($conn,$createQuery);
-
+                    if(!$createTable)
+                        die("create table:".mysqli_error($conn));
+                
+                //get userID from user
+                $id=mysqli_query($conn,"SELECT userID from user WHERE username=$username");
                 //INSERT INTO DATABASE
-                $insertQuery="INSERT INTO profile(name,email,age,birthdate,fav_food,gender,eye_color,bio,file,phone,url,color,password_hashed) 
-                VALUES ('$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$phone','$url','$color','$hashed_password')";
+                $insertQuery="INSERT INTO profile(name,email,age,birthdate,fav_food,gender,eye_color,bio,file,phone,url,color,password_hashed,userID) 
+                VALUES ('$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$phone','$url','$color','$hashed_password','$id')";
                 $insert=mysqli_query($conn,$insertQuery);
                 
                         if($insert)
                             echo "<script>show_alert('insert_success')</script>";
                         else{
                             echo "<script>show_alert('insert_error')</script>";
+                            die("failed:".mysqli_error($conn));
                         }
             }
             else{
