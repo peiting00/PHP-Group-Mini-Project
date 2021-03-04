@@ -1,6 +1,5 @@
 <?php
-include"dbConnection.php";
-    include('session.php');
+include('session.php');
 ?>
 
 <!DOCTYPE html>
@@ -30,7 +29,7 @@ include"dbConnection.php";
                 <div class="form-block">
                     <h4><?php echo "Welcome, ". $_SESSION['login_user'].'<br>'; ?></h4>
                     <h4>Please complete your profile.</h4>
-                    <form action="home.php"  method="post">
+                    <form action="home.php"  method="post" enctype="multipart/form-data">
                         <div class="form-group">
                             <label for="name">Name <span style="color:red">*</span></label>
                             <input type="text" class="form-control" placeholder="Your Full Name" name="name" id="name" required>
@@ -52,11 +51,11 @@ include"dbConnection.php";
                             <label for="fav_food">Your Favourite Food </label><br/>
                                 <div>
                                     <label for='banana'>Banana</label>
-                                    <input type="checkbox"  name="banana" id="banana" >
+                                    <input type="checkbox"  name="fav[]" value="banana" id="banana" >
                                 </div>
                                 <div>
                                 <label for='apple' >Apple</label>
-                                <input type='checkbox' name="apple" id="apple" >
+                                <input type='checkbox' name="fav[]" value="apple" id="apple" >
                                 </div>
                         </div>
                         <hr/>
@@ -64,42 +63,38 @@ include"dbConnection.php";
                             <label for="gender">Gender <span style="color:red">*</span></label><br/>
                                 <div>
                                     <label for='Male'>Male</label>
-                                    <input type="radio"  name="gender" id="male" required>
+                                    <input type="radio"  name="gender" id="male" value="Male" required>
                                 </div>
                                 <div>
                                 <label for='female' >Female</label>
-                                <input type='radio' name="gender" id="female" required>
+                                <input type='radio' name="gender" id="female" value="Female" required>
                                 </div>
                         </div>
                         <hr/>
                         <div class="form-group">
-                            <label for='eyeColor'>Eye Color <span style="color:red">*</span></label>
-                            <select name='eyeColor' id='eyeColor'>
-                                <option value='Green'>Green</option>
-                                <option value='Black'>Black</option>
-                                <option value='Blue'>Blue</option>
-                                <option value='Red'>Red</option>
-                                <option value='Red'>Amber</option>
-                                <option value='Red'>Grey</option>
-                                <option value='Red'>Hazel</option>
+                            <label for='lbleyeColor'>Eye Color <span style="color:red">*</span></label>
+                            <select name="eyeColor" id="eyeColor">
+                                <option value="Green">Green</option>
+                                <option value="Black">Black</option>
+                                <option value="Blue">Blue</option>
+                                <option value="Red">Red</option>
+                                <option value="Amber">Amber</option>
+                                <option value="Grey">Grey</option>
+                                <option value="Hazel">Hazel</option>
 		                    </select>
 	                    </div>
                         <div class="form-group">
 	                        <label for='bio'>Bio <span style="color:red">*</span></label>
 	                        <textarea id='bio' name='bio' placeholder="Hi,I am from...." required></textarea>
 	                    </div>
-                        <hr/>
-                        <div>
-                            <label for='file'>File Upload</label>
-                            <input type='text' id='filename' class="form-control" placeholder="File Title">
-                            <input type='file' id='file' name='file'>
-                            
-                            
-	                    </div>
-                        <br/>
+                        <div class="form-group">
+                            <label for='file'> Upload Profile Picture <span style="color:red">*</span></label>
+                            <input type='file' name='uploadfile' accept="image/*" required>
+                        </div>
+                        <br/><hr/>
                         <div class="form-group">
                             <label for='phone'>Phone <span style="color:red">*</span></label>
-                            <input type='tel' name='phone' id='phone' class="form-control" placeholder="01012345678" pattern="[0-9]{10}" required>
+                            <input type='text' name='phone' id='phone' class="form-control" maxlength="10" placeholder="01012345678" pattern="[0-9]{10}" required>
 	                    </div>
                         <div class="form-group">
                             <label for='url'>URL </label>
@@ -113,13 +108,13 @@ include"dbConnection.php";
                             <label for='password'> Password <span style="color:red">*</span></label>
                             <input type='password' class="form-control" placeholder="Enter your password to validate submission" name="password" id="password" required>
                         </div>
-                        <div>
-                            <button type='reset' id="reset" name="reset" class="btn" size=5  onClick="return confirmReset()">Reset</button>
-		                    <button type='submit' id="submit" name="submit" class="btn" size=5 >Submit</button>
-                            <button type='logout' id="logout" name="logout" class="btn" size=5 >logout</button>
-
+                        <div class="form-group">
+                            <button type='reset' id="reset" name="reset" class="btn"  onClick="return confirmReset()">Reset</button>
+		                    <button type='submit' id="submit" name="submit" class="btn" >Submit</button>
                         </div>
-
+                        <div>
+                            <span style="text-align:center;">Click here to <a href="logout.php" class="login-acc">Logout</a></span> 
+                        </div>
                     </form>
                 </div>
             </div>
@@ -157,80 +152,88 @@ function setAge(){
     //age input field
     document.getElementById('age').value = age;
 }
-
-function show_alert(status) {
-        var alertDiv = document.getElementById("alert");
-
-        if (status == "fail_password") {
-            alertDiv.classList.add("alert-danger");
-            $(alertDiv).append("Wrong password."); 
-        } else {
-            alertDiv.classList.add("alert-success");
-            $(alertDiv).append("<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
-                               "</button>Welcome, "+status+".");
-        }
-}
-
 </script>
 
-
-
+<!-- POP Out message -->
+<script type="text/javascript">
+    function show_alert(status) {
+        var alertDiv = document.getElementById("alert");
+        if(status == "fail_password") {
+            alertDiv.classList.add("alert-danger");
+            $(alertDiv).append("Wrong password entered. You are not eligible to insert.");
+        }else if(status == "insert_success") {
+            alertDiv.classList.add("alert-success");
+            $(alertDiv).append("Profile Information upload Success!");
+        }else if(status == "insert_error") {
+            alertDiv.classList.add("alert-danger");
+            $(alertDiv).append("Failed to upload profile Information! Try again.");
+        }
+    }
+</script>
 
 <?php
 include "dbConnection.php";
 
-    if(isset($_POST['logout'])){
-
-        //redirect to logout page
-        echo "<script>window.setTimeout(
-            function(){
-                window.location.href='login.php';
-            },0);</script>";
-    }
-
     if(isset($_POST['submit'])){
+        //RETRIEVE USER INPUT
+        $username=$_SESSION['login_user'];
+        $name= $_POST["name"];
+        $email= $_POST["email"];
+        $age= $_POST["age"];
+        $dob=$_POST["birthdate"]; //convert string to TIME
+        $favFood= implode(",",$_POST["fav"]); //convert array into string
+        $gender= $_POST["gender"];
+        $eyeColor= $_POST["eyeColor"];
+        $bio= $_POST["bio"];
+        $phone= $_POST["phone"];
+        $url= $_POST["url"];
+        $color= $_POST["color"];
         $password = $_POST["password"];
         $username= $_SESSION['login_user'];
         $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        //Upload image file
+        $filename=$_FILES['uploadfile']['name'];
+        $tempname=$_FILES['uploadfile']['tmp_name'];
+            $folder="image/".$filename;
 
+        //verify password query
         $passwordVerify = mysqli_query($conn, "SELECT password_hash FROM user WHERE username='$username'");
         $password_hash = mysqli_fetch_row($passwordVerify);
-       
+        
         //validate password before INSERT
         if($passwordVerify){
             if(password_verify($password, $password_hash[0])){
-
                 //CREATE TABLE profile
-                $createQuery="CREATE TABLE IF NOT EXISTS 'profile' (
-                    'profileNum' int(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-                    'name' varchar(50) NOT NULL,
-                    'email' varchar(50) NOT NULL,
-                    'age' int(3) NOT NULL,
-                    'bithdate' date NOT NULL,
-                    'fav_food' varchar(10) NULL,
-                    'gender' varchar(10) NOT NULL,
-                    'eye_color' varchar(10) NOT NULL,
-                    'bio' varchar(500) NOT NULL,
-                    'file' 
-                    'phone' VARCHAR(10) NOT NULL,
-                    'url' varchar(max) NULL,
-                    'color' varchar(10) NULL,
-                    'created_at' datetime DEFAULT CURRENT_TIMESTAMP,
-                    'username' varchar(100) FOREIGN KEY REFERENCES user(username),
-                    ";
+                    $createQuery="CREATE TABLE IF NOT EXISTS profile(
+                        profileNum int(6) UNSIGNED AUTO_INCREMENT UNIQUE PRIMARY KEY,
+                        name varchar(50) NOT NULL,
+                        email varchar(50) NOT NULL,
+                        age int(3) NOT NULL,
+                        birthdate date NOT NULL,
+                        fav_food varchar(20) NULL,
+                        gender varchar(10) NOT NULL,
+                        eye_color varchar(10) NOT NULL,
+                        bio varchar(200) NOT NULL,
+                        file varchar(200) NULL,
+                        phone VARCHAR(10) NOT NULL,
+                        url varchar(200) NULL,
+                        color varchar(10) NULL,
+                        password_hashed char(40) NOT NULL,
+                        created_at datetime DEFAULT CURRENT_TIMESTAMP)
+                        ";
+
+                    $createTable=mysqli_query($conn,$createQuery);
+
+                //INSERT INTO DATABASE
+                $insertQuery="INSERT INTO profile(name,email,age,birthdate,fav_food,gender,eye_color,bio,file,phone,url,color,password_hashed) 
+                VALUES ('$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$phone','$url','$color','$hashed_password')";
+                $insert=mysqli_query($conn,$insertQuery);
                 
-
-
-
-
-
-
-
-
-
-
-
-
+                        if($insert)
+                            echo "<script>show_alert('insert_success')</script>";
+                        else{
+                            echo "<script>show_alert('insert_error')</script>";
+                        }
             }
             else{
                 echo "<script>show_alert('fail_password')</script>"; 
