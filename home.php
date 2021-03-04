@@ -203,36 +203,13 @@ include "dbConnection.php";
         //validate password before INSERT
         if($passwordVerify){
             if(password_verify($password, $password_hash[0])){
-                //CREATE TABLE profile
-                    $createQuery="CREATE TABLE IF NOT EXISTS profile(
-                        profileNum int(6) UNSIGNED AUTO_INCREMENT UNIQUE PRIMARY KEY,
-                        name varchar(50) NOT NULL,
-                        email varchar(50) NOT NULL,
-                        age int(3) NOT NULL,
-                        birthdate date NOT NULL,
-                        fav_food varchar(20) NULL,
-                        gender varchar(10) NOT NULL,
-                        eye_color varchar(10) NOT NULL,
-                        bio varchar(200) NOT NULL,
-                        file varchar(200) NULL,
-                        phone VARCHAR(10) NOT NULL,
-                        url varchar(200) NULL,
-                        color varchar(10) NULL,
-                        password_hashed char(40) NOT NULL,
-                        created_at datetime DEFAULT CURRENT_TIMESTAMP,
-                        userID INT(6) UNSIGNED,
-                        FOREIGN KEY (userID) REFERENCES user(userID)
-                        )";
-
-                    $createTable=mysqli_query($conn,$createQuery);
-                    if(!$createTable)
-                        die("create table:".mysqli_error($conn));
                 
                 //get userID from user
-                $id=mysqli_query($conn,"SELECT userID from user WHERE username=$username");
+                $id = mysqli_query($conn,"SELECT userID from user WHERE username='$username'");
+                $idRow = mysqli_fetch_row($id);
                 //INSERT INTO DATABASE
-                $insertQuery="INSERT INTO profile(name,email,age,birthdate,fav_food,gender,eye_color,bio,file,phone,url,color,password_hashed,userID) 
-                VALUES ('$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$phone','$url','$color','$hashed_password','$id')";
+                $insertQuery="INSERT INTO profile(userID,name,email,age,birthdate,fav_food,gender,eye_color,bio,file,phone,url,color,password_hashed) 
+                VALUES ('$idRow[0]','$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$phone','$url','$color','$hashed_password')";
                 $insert=mysqli_query($conn,$insertQuery);
                 
                         if($insert)
