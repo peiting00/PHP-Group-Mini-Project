@@ -114,14 +114,9 @@ input[type='checkbox'] {
 }
   
 .valid:before{
-<<<<<<< HEAD
-    content: "\2714"; /*tick*/
-    left:-10px;
-=======
     content:"\2714";
     /*content:"✔"; /*tick*/
     left: -10px;
->>>>>>> 745cb45172057a371c7c26d4fea07d860bf0d51d
     position:relative;
 }
 
@@ -133,12 +128,8 @@ input[type='checkbox'] {
 .invalid:before{ /* add symbol*/
     position:relative;
     left:-10px;
-<<<<<<< HEAD
-    content: "\2715";/*cross*/
-=======
     /*content:"✖";/*cross*/
     content:"\2715";/*cross*/
->>>>>>> 745cb45172057a371c7c26d4fea07d860bf0d51d
 }
 
 textarea#bio {
