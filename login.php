@@ -110,7 +110,7 @@
                 session_start();
                 $_SESSION['login_user'] = $username; 
                 echo "<script>show_alert('$username')</script>";
-                header( "location:home.php" ); 
+                header("refresh:3;url=home.php"); 
                 
             } 
             else {
