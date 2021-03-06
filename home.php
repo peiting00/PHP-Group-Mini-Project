@@ -70,7 +70,6 @@ include('session.php');
                                 <input type='radio' name="gender" id="female" value="Female" required>
                                 </div>
                         </div>
-                        <hr/>
                         <div class="form-group">
                             <label for='lbleyeColor'>Eye Color <span style="color:red">*</span></label>
                             <select name="eyeColor" id="eyeColor">
@@ -83,6 +82,7 @@ include('session.php');
                                 <option value="Hazel">Hazel</option>
 		                    </select>
 	                    </div>
+                        <hr/>
                         <div class="form-group">
 	                        <label for='bio'>Bio <span style="color:red">*</span></label>
 	                        <textarea id='bio' name='bio' placeholder="Hi,I am from...." required></textarea>
@@ -91,11 +91,6 @@ include('session.php');
                             <label for='file'> Upload Profile Picture <span style="color:red">*</span></label>
                             <input type='file' name='uploadfile' accept="image/*" required>
                         </div>
-                        <br/><hr/>
-                        <div class="form-group">
-                            <label for='phone'>Phone <span style="color:red">*</span></label>
-                            <input type='text' name='phone' id='phone' class="form-control" maxlength="10" placeholder="01012345678" pattern="[0-9]{10}" required>
-	                    </div>
                         <div class="form-group">
                             <label for='url'>URL </label>
                             <input type='url' name='url' id='url' class="form-control" placeholder="https://example.com" pattern="https://.*" size="30">
@@ -103,10 +98,6 @@ include('session.php');
                         <div class="form-group">
                             <label for='color'> Color </label>
                             <input type='color' class="form-control" name='color' id='color'>
-                        </div>
-                        <div class="form-group">
-                            <label for='password'> Password <span style="color:red">*</span></label>
-                            <input type='password' class="form-control" placeholder="Enter your password to validate submission" name="password" id="password" required>
                         </div>
                         <div class="form-group">
                             <button type='reset' id="reset" name="reset" class="btn"  onClick="return confirmReset()">Reset</button>
@@ -158,10 +149,7 @@ function setAge(){
 <script type="text/javascript">
     function show_alert(status) {
         var alertDiv = document.getElementById("alert");
-        if(status == "fail_password") {
-            alertDiv.classList.add("alert-danger");
-            $(alertDiv).append("Wrong password entered. You are not eligible to insert.");
-        }else if(status == "insert_success") {
+        if(status == "insert_success") {
             alertDiv.classList.add("alert-success");
             $(alertDiv).append("Profile Information upload Success!");
         }else if(status == "insert_error") {
@@ -185,45 +173,31 @@ include "dbConnection.php";
         $gender= $_POST["gender"];
         $eyeColor= $_POST["eyeColor"];
         $bio= $_POST["bio"];
-        $phone= $_POST["phone"];
         $url= $_POST["url"];
         $color= $_POST["color"];
-        $password = $_POST["password"];
         $username= $_SESSION['login_user'];
-        $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+        
         //Upload image file
         $filename=$_FILES['uploadfile']['name'];
         $tempname=$_FILES['uploadfile']['tmp_name'];
             $folder="image/".$filename;
-
-        //verify password query
-        $passwordVerify = mysqli_query($conn, "SELECT password_hash FROM user WHERE username='$username'");
-        $password_hash = mysqli_fetch_row($passwordVerify);
         
-        //validate password before INSERT
-        if($passwordVerify){
-            if(password_verify($password, $password_hash[0])){
+        
+        //get userID from user
+        $id = mysqli_query($conn,"SELECT userID from user WHERE username='$username'");
+        $idRow = mysqli_fetch_row($id);
+        
+        //INSERT INTO DATABASE
+        $insertQuery="INSERT INTO profile(userID,name,email,age,birthdate,fav_food,gender,eye_color,bio,file,url,color) 
+        VALUES ('$idRow[0]','$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$url','$color')";
+        $insert=mysqli_query($conn,$insertQuery);
                 
-                //get userID from user
-                $id = mysqli_query($conn,"SELECT userID from user WHERE username='$username'");
-                $idRow = mysqli_fetch_row($id);
-                //INSERT INTO DATABASE
-                $insertQuery="INSERT INTO profile(userID,name,email,age,birthdate,fav_food,gender,eye_color,bio,file,phone,url,color,password_hashed) 
-                VALUES ('$idRow[0]','$name','$email','$age','$dob','$favFood','$gender','$eyeColor','$bio','$filename','$phone','$url','$color','$hashed_password')";
-                $insert=mysqli_query($conn,$insertQuery);
-                
-                        if($insert)
-                            echo "<script>show_alert('insert_success')</script>";
-                        else{
-                            echo "<script>show_alert('insert_error')</script>";
-                            die("failed:".mysqli_error($conn));
-                        }
-            }
+            if($insert)
+                echo "<script>show_alert('insert_success')</script>";
             else{
-                echo "<script>show_alert('fail_password')</script>"; 
+                echo "<script>show_alert('insert_error')</script>";
+                die("failed:".mysqli_error($conn));
             }
-        }
-
     }
-
+        
 ?>

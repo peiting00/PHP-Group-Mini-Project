@@ -22,10 +22,8 @@ $profileSql= "CREATE TABLE IF NOT EXISTS profile(
     eye_color VARCHAR(10) NOT NULL,
     bio VARCHAR(200) NOT NULL,
     file VARCHAR(200) NULL,
-    phone VARCHAR(10) NOT NULL,
     url VARCHAR(200) NULL,
     color VARCHAR(10) NULL,
-    password_hashed CHAR(40) NOT NULL,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (userID) REFERENCES user(userID))";
 
