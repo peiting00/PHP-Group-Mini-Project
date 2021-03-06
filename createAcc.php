@@ -134,8 +134,7 @@
             $(alertDiv).append("Password mismatch!"); 
         }else {
             alertDiv.classList.add("alert-success");
-            $(alertDiv).append("<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
-                               "</button>"+status+".");
+            $(alertDiv).append("Congratulation! You have registered a new accpunt with "+status+"!");
         }
     }
 </script>
@@ -183,7 +182,7 @@ include "dbConnection.php";
                 // If Insert Successfully
                 if($register){
                     
-                    echo "<script>show_alert('Congratulation! Registration Success!')</script>";
+                    echo "<script>show_alert('Username:$username and Phone: $phone')</script>";
                     echo "<script>window.setTimeout(
                         function(){
                             window.location.href='login.php';
