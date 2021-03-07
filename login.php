@@ -87,8 +87,9 @@
 </script>
 
 <?php
+    ob_start();
     include "dbConnection.php";
-    session_start();
+    //session_start();
 
     if (isset($_POST["login"])) {
         $username = $_POST["username"];
@@ -120,4 +121,5 @@
     }
 
     mysqli_close($conn);
+    ob_end_flush();
 ?>
