@@ -151,10 +151,10 @@ function setAge(){
         var alertDiv = document.getElementById("alert");
         if(status == "insert_success") {
             alertDiv.classList.add("alert-success");
-            $(alertDiv).append("Profile Information upload Success!");
+            $(alertDiv).append("Profile information upload successfully!");
         }else if(status == "insert_error") {
             alertDiv.classList.add("alert-danger");
-            $(alertDiv).append("Failed to upload profile Information! Try again.");
+            $(alertDiv).append("Failed to upload profile information! Try again.");
         }
     }
 </script>

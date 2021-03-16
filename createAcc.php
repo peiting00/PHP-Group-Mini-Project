@@ -134,7 +134,7 @@
             $(alertDiv).append("Password mismatch!"); 
         }else {
             alertDiv.classList.add("alert-success");
-            $(alertDiv).append("Congratulation! You have registered a new accpunt with "+status+"!");
+            $(alertDiv).append("Congratulation! You have registered a new account with "+status+"!");
         }
     }
 </script>

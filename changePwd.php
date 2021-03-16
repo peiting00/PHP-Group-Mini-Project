@@ -115,7 +115,7 @@
         }
         else {
             alertDiv.classList.add("alert-success");
-            $(alertDiv).append("Your new password "+status+" has been saved.");
+            $(alertDiv).append("Your new password has been saved.");
         }
     }
 </script>

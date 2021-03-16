@@ -6,7 +6,7 @@ include "dbConnection.php";
 $userSql = "CREATE TABLE IF NOT EXISTS user (
     userID INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(100) NOT NULL UNIQUE, 
-    password_hash CHAR(40) NOT NULL, 
+    password_hash CHAR(60) NOT NULL, 
     phone VARCHAR(10) NOT NULL)";
 
 // Create table profile if not exists

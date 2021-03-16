@@ -70,14 +70,10 @@
     function show_alert(status) {
         var alertDiv = document.getElementById("alert");
 
-        if (status == "fail_username") {
-            alertDiv.classList.add("alert-warning");
-            $(alertDiv).append("<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
-                               "</button>Username does not exists.");
-        } else if (status == "fail_password") {
+        if (status == "fail") {
             alertDiv.classList.add("alert-danger");
             $(alertDiv).append("<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
-                               "</button>Wrong password.");
+                               "</button>Invalid username or password.");
         } else {
             alertDiv.classList.add("alert-success");
             $(alertDiv).append("<button type='button' class='close' data-dismiss='alert'>&times;</button>"+
@@ -101,9 +97,7 @@
         $password_hash = mysqli_fetch_row($loginQuery);
         
         if($loginQuery) {
-            if ($password_hash[0] == "") {
-                echo "<script>show_alert('fail_username')</script>";
-            } else if (password_verify($password, $password_hash[0])) {
+            if (password_verify($password, $password_hash[0])) {
                 if(isset($_POST["remember_me"])){  
                     setcookie('usernamecookie', $username, time()+86400); //86400 = 1 day
                     setcookie('passwordcookie', $password, time()+86400);
@@ -112,10 +106,9 @@
                 $_SESSION['login_user'] = $username; 
                 echo "<script>show_alert('$username')</script>";
                 header("refresh:3;url=home.php"); 
-                
             } 
             else {
-                echo "<script>show_alert('fail_password')</script>";
+                echo "<script>show_alert('fail')</script>";
             }
         }
     }
